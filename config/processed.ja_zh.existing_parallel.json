@@ -1,0 +1,10 @@
+{
+    "version": "ja_zh.existing_parallel",
+    "train": "train.ja_zh.existing_parallel",
+    "dev": "dev.ja_zh.v01",
+    "tests": [
+        "dev.ja_zh.v01"
+    ],
+    "bpe": true,
+    "vocab_size": 30000
+}

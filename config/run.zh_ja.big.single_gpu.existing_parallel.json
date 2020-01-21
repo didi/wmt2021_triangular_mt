@@ -1,0 +1,26 @@
+{
+    "version": "zh_ja.big.single_gpu.existing_parallel",
+    "processed": "ja_zh.existing_parallel",
+    "hparams": "transformer_big_single_gpu",
+    "model": "transformer",
+    "problem": "machine_translation",
+    "n_gpu": 1,
+    "eval_early_stopping_steps": 14500,
+    "eval_steps": 10000,
+    "local_eval_frequency": 1000,
+    "keep_checkpoint_max": 10,
+    "beam_size": [
+        4
+    ],
+    "alpha": [
+        0.0,
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1.0,
+        1.2,
+        1.4,
+        1.6
+    ]
+}
