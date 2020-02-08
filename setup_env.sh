@@ -13,6 +13,7 @@ pip install tensorflow-probability==0.7.0
 pip install tensorflow-gpu==1.14.0
 pip install tensorflow_hub==0.4.0
 pip install tensor2tensor==1.13
+pip install tensorflow-datasets==1.3.2
 
 # make sure the version is 1.12.0 and True for is_gpu_available
 python -c 'import tensorflow as tf; print(tf.__version__); print(tf.test.is_gpu_available());'

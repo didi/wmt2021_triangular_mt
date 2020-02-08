@@ -24,7 +24,7 @@ A linux machine GPU and installed CUDA >= 10.0
     ```bash
        bash -i setup_env.sh
     ```
-    Note: If you are using a server outside of China, you'd better delete two tsinghua mirrors in `environment.yml` line `3-4` for a better speed.
+    Note: If you are using a server outside of China, you'd better delete two tsinghua mirrors in `environment.yml` line `3-4` and `setup_env.sh` line `9` for a better speed.
     
 ## Data Download
 
