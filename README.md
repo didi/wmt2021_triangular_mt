@@ -28,9 +28,9 @@ A linux machine GPU and installed CUDA >= 10.0
     
 ## Data Download
 
-Run `data_download.sh` to download dev and exsiting_parallel data:
+Run `download_data.sh` to download dev and exsiting_parallel data:
 ```bash
-bash data_download.sh
+bash download_data.sh
 ```
 
 This script will download and decompress the data to `data/orig` and then copy the parallel files as `data/raw/dev.ja_zh.v01/(ja|zh)` and `data/raw/train.ja_zh.existing_parallel/(ja|zh)`
