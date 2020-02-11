@@ -1,6 +1,6 @@
 # Baseline model for IWSLT Open Domain Translation
 
-Update in 1/20/2020
+Update in 2/10/2020
 
 
 ## NOTE
