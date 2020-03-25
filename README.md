@@ -2,7 +2,6 @@
 
 Update in 3/25/2020
 
-
 ## NOTE
 
 All scripts should run from root folder:
