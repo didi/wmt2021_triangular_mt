@@ -1,6 +1,6 @@
 # Baseline model for IWSLT Open Domain Translation
 
-Update in 1/20/2020
+Update in 3/25/2020
 
 
 ## NOTE
@@ -123,3 +123,14 @@ After step 4, all the decoded results will be in folder `data/run/ja_zh.big.sing
 
 The reference files are in folder `data/run/ja_zh.big.single_gpu.existing_parallel_tmp/decode`.
 
+## Independent Evaluation Script
+
+Folder `eval` contains the evaluation scripts to calculate the character-level BLEU score:
+
+```
+cd eval
+python bleu.py hyp.txt ref.txt
+```
+Where `hyp.txt` and `ref.txt` can be either normal Chinese/Japanese (i.e. without space between characters) or character-split Chinese/Japanese.
+
+See 'example.sh' for detailed examples. 
