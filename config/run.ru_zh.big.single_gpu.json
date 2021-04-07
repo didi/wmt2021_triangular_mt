@@ -1,0 +1,18 @@
+{
+    "version": "ru_zh.big.single_gpu",
+    "processed": "ru_zh",
+    "hparams": "transformer_big_single_gpu",
+    "model": "transformer",
+    "problem": "machine_translation",
+    "n_gpu": 1,
+    "eval_early_stopping_steps": 14500,
+    "eval_steps": 10000,
+    "local_eval_frequency": 1000,
+    "keep_checkpoint_max": 10,
+    "beam_size": [
+        4
+    ],
+    "alpha": [
+        1.0
+    ]
+}

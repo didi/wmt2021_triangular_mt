@@ -1,6 +1,6 @@
-# Baseline model for IWSLT Open Domain Translation
+# Baseline model for WMT 2021 Triangular MT
 
-Update in 3/25/2020
+Updated on 04/07/2021. The baseline code for the shared task Triangular MT: Using English to improve Russian-to-Chinese machine translation. 
 
 ## NOTE
 
@@ -25,28 +25,21 @@ A linux machine GPU and installed CUDA >= 10.0
     ```
     Note: If you are using a server outside of China, you'd better delete two tsinghua mirrors in `environment.yml` line `3-4` and `setup_env.sh` line `9` for a better speed.
     
-## Data Download
+## Registration
 
-Run `download_data.sh` to download dev and exsiting_parallel data:
-```bash
-bash download_data.sh
-```
-
-This script will download and decompress the data to `data/orig` and then copy the parallel files as `data/raw/dev.ja_zh.v01/(ja|zh)` and `data/raw/train.ja_zh.existing_parallel/(ja|zh)`
-
-To download other data, please register at http://iwslt.org/doku.php?id=open_domain_translation to get the download link.
-
-
+To participate please register to the shared task on Codalab .
+[`Link to Codalab website`](https://competitions.codalab.org/competitions/30446). 
 
 ### Detailed Configuration
 
 We will use the toolkit [`tensor2tensor`](https://github.com/tensorflow/tensor2tensor) to train a Transformer based NMT system. 
-`config/run.ja_zh.big.single_gpu.existing_parallel.json` lists all the configurations. 
+`config/run.ru_zh.big.single_gpu.json` lists all the configurations. 
 
 ```json
 {
-    "version": "ja_zh.big.single_gpu.existing_parallel",
-    "processed": "ja_zh.existing_parallel",
+{
+    "version": "ru_zh.big.single_gpu",
+    "processed": "ru_zh",
     "hparams": "transformer_big_single_gpu",
     "model": "transformer",
     "problem": "machine_translation",
@@ -59,16 +52,9 @@ We will use the toolkit [`tensor2tensor`](https://github.com/tensorflow/tensor2t
         4
     ],
     "alpha": [
-        0.0,
-        0.2,
-        0.4,
-        0.6,
-        0.8,
-        1.0,
-        1.2,
-        1.4,
-        1.6
+        1.0
     ]
+}
 }
 ```
 
@@ -76,34 +62,34 @@ The hyperparameter set is `transformer_big_single_gpu`.
 We will use only `1` GPU. 
 The model will evaluate the dev loss and save the checkpoint every `1000` steps. 
 If the dev loss doesn't decrease for `14500` steps, the training will stop. 
-When decoding the test set, we will use beam size `4` and try different alpha values from 0.0 to 1.6. 
+When decoding the test set, we will use beam size `4` and use alpha value of 1.0. 
 The larger the alpha value, the longer the generated translation will be.
 
-`processed` indicates the version of the processed files. Here is `config/processed.ja_zh.existing_parallel.json`:
+`processed` indicates the version of the processed files. Here is `config/processed.ru_zh.json`:
 
 ```json
 {
-    "version": "ja_zh.existing_parallel",
-    "train": "train.ja_zh.existing_parallel",
-    "dev": "dev.ja_zh.v01",
+    "version": "ru_zh",
+    "train": "train.ru_zh",
+    "dev": "dev.ru_zh",
     "tests": [
-        "dev.ja_zh.v01"
+        "dev.ru_zh"
     ],
     "bpe": true,
     "vocab_size": 30000
 }
 ``` 
-It indicates that the training folder is `data/raw/train.ja_zh.existing_parallel`, dev folder is `data/raw/dev.ja_zh.v01` and test folder is `data/raw/dev.ja_zh.v01`, i.e. we use the dev as test. 
+It indicates that the training folder is `data/raw/train.ru_zh`, dev folder is `data/raw/dev.ru_zh` and test folder is `data/raw/dev.ru_zh`, i.e. we use the dev as test. 
 The preprocessing pipeline will use byte-pair-encoding (BPE) and the number of merge operations are `30000`. 
 
 ## Train and Decode
 
 
-To train a Japanese to Chinese NMT system: 
+To train a Russian to Chinese NMT system: 
 
 ```
 conda activate mt_baseline
-bash pipeline.sh config/run.ja_zh.big.single_gpu.existing_parallel.json 1 4
+bash pipeline.sh config/run.ru_zh.big.single_gpu.json 1 4
 ```
 
 `1` is the start step and `4` is the end step.
@@ -113,14 +99,14 @@ bash pipeline.sh config/run.ja_zh.big.single_gpu.existing_parallel.json 1 4
 - step 3: train
 - setp 4: decode_test : decode test with all combinations of (beam, alpha)
 
-After step 4, all the decoded results will be in folder `data/run/ja_zh.big.single_gpu.existing_parallel_tmp/decode`:
-* `decode.b4_a0.0.test0.txt`: the decoded BPE subwords using beam size 4 and alpha value 0.0.
-* `decode.b4_a0.0.test0.tok`: the decoded tokens when we merge the BPE subwords into whole words.
-* `decode.b4_a0.0.test0.char`： the decoded utf8 characters of `decode.b4_a0.0.test0.tok` after removing space.
-* `bleu.b4_a0.0.test0.tok`: the token level BLEU score.
-* `bleu.b4_a0.0.test0.char`: the character level BLEU score. 
+After step 4, all the decoded results will be in folder `data/run/ru_zh.big.single_gpu_tmp/decode`:
+* `decode.b4_a1.0.test0.txt`: the decoded BPE subwords using beam size 4 and alpha value 1.0.
+* `decode.b4_a1.0.test0.tok`: the decoded tokens when we merge the BPE subwords into whole words.
+* `decode.b4_a1.0.test0.char`： the decoded utf8 characters of `decode.b4_a1.0.test0.tok` after removing space.
+* `bleu.b4_a1.0.test0.tok`: the token level BLEU score.
+* `bleu.b4_a1.0.test0.char`: the character level BLEU score. 
 
-The reference files are in folder `data/run/ja_zh.big.single_gpu.existing_parallel_tmp/decode`.
+The reference files are in folder `data/run/ru_zh.big.single_gpu_tmp/decode`.
 
 ## Independent Evaluation Script
 
@@ -130,6 +116,6 @@ Folder `eval` contains the evaluation scripts to calculate the character-level B
 cd eval
 python bleu.py hyp.txt ref.txt
 ```
-Where `hyp.txt` and `ref.txt` can be either normal Chinese/Japanese (i.e. without space between characters) or character-split Chinese/Japanese.
+Where `hyp.txt` and `ref.txt` can be either normal Chinese (i.e. without space between characters) or character-split Chinese.
 
 See 'example.sh' for detailed examples. 

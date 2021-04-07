@@ -1,0 +1,10 @@
+{
+    "version": "ru_zh",
+    "train": "train.ru_zh",
+    "dev": "dev.ru_zh",
+    "tests": [
+	"dev.ru_zh"
+    ],
+    "bpe": true,
+    "vocab_size": 30000
+}

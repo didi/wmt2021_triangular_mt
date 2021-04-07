@@ -38,3 +38,4 @@ pip install subword-nmt
 pip install filelock
 
 pip install pandas
+pip install nltk==3.5
