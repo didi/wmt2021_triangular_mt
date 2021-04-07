@@ -3,7 +3,7 @@
 # How to run: 
 # python bleu.py hyp.txt ref.txt
 #
-# both hyp.txt and ref.txt can be either normal Chinese/Japanese or char-split Chinese/Japanese
+# both hyp.txt and ref.txt can be either normal Chinese or char-split Chinese
 # 
 
 import subprocess as sp

@@ -1,6 +1,8 @@
-# Baseline model for WMT 2021 Triangular MT
+# Baseline code for WMT 2021 Triangular MT
 
-Updated on 04/07/2021. The baseline code for the shared task Triangular MT: Using English to improve Russian-to-Chinese machine translation. 
+Updated on 04/07/2021. 
+
+The baseline code for the shared task [`Triangular MT: Using English to improve Russian-to-Chinese machine translation`](http://www.statmt.org/wmt21/triangular-mt-task.html). 
 
 ## NOTE
 
@@ -37,7 +39,6 @@ We will use the toolkit [`tensor2tensor`](https://github.com/tensorflow/tensor2t
 
 ```json
 {
-{
     "version": "ru_zh.big.single_gpu",
     "processed": "ru_zh",
     "hparams": "transformer_big_single_gpu",
@@ -54,7 +55,6 @@ We will use the toolkit [`tensor2tensor`](https://github.com/tensorflow/tensor2t
     "alpha": [
         1.0
     ]
-}
 }
 ```
 
@@ -107,6 +107,10 @@ After step 4, all the decoded results will be in folder `data/run/ru_zh.big.sing
 * `bleu.b4_a1.0.test0.char`: the character level BLEU score. 
 
 The reference files are in folder `data/run/ru_zh.big.single_gpu_tmp/decode`.
+
+#### Note 
+
+Please use your own dev set if you need to tune. We have released the russian source of the dev set on Codalab. You can submit your system outputs on Codalab to get the Bleu score on the released dev set. 
 
 ## Independent Evaluation Script
 
