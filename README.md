@@ -110,7 +110,7 @@ The reference files are in folder `data/run/ru_zh.big.single_gpu_tmp/decode`.
 
 #### Note 
 
-Please use your own dev set if you need to tune. We have released the russian source of the dev set on Codalab. You can submit your system outputs on Codalab to get the Bleu score on the released dev set. 
+We have released the dev set on Codalab. You can submit your system outputs on Codalab to get the Bleu score on the released dev set. You can also download the dev set by registering to the competition on [Codalab](https://competitions.codalab.org/competitions/30446#participate)
 
 ## Independent Evaluation Script
 
