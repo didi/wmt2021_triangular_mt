@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
         print("[Tokenization] for folder: {}".format(raw_dir))
 
-        for lang in ['zh','ja']:
+        for lang in ['zh','ja', 'ru', 'en']:
             fn_in = os.path.join(raw_dir, lang)
             if os.path.exists(fn_in):
                 # token file

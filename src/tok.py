@@ -9,6 +9,7 @@ import jieba
 import MeCab
 from hanziconv import HanziConv
 from src.util import run_cmd
+from nltk.tokenize import word_tokenize
 
 #### BPE ####
 
@@ -103,6 +104,20 @@ def tok_file(fn_in, fn_out, lang):
                 line_segmented = mecab_tok(ja_tok, clean_line)
                 s_line = line_segmented.strip()
                 fout.write(s_line + "\n")
-
-
+        elif lang == 'ru':
+            for line in fin:
+                # clean line
+                clean_line = line.strip()
+                # tokenization
+                line_segmented = " ".join(word_tokenize(clean_line, language='russian'))
+                s_line = line_segmented.strip()
+                fout.write(s_line + "\n")
+        elif lang == 'en':
+            for line in fin:
+                # clean line
+                clean_line = line.strip()
+                # tokenization
+                line_segmented = " ".join(word_tokenize(clean_line))
+                s_line = line_segmented.strip()
+                fout.write(s_line + "\n")
     
